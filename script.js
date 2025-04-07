@@ -1,81 +1,124 @@
-/*========== menu icon navbar ==========*/
-let menuIcon = document.querySelector('#menu-icon');
-let navbar = document.querySelector('.navbar');
+/* DOM Elements */
+const menuIcon = document.querySelector('#menu-icon');
+const navbar = document.querySelector('.navbar');
+const header = document.querySelector('.header');
+const darkModeIcon = document.querySelector('#darkMode-icon');
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('header nav a');
 
-menuIcon.onclick = () => {
+/* Navigation Functions */
+const toggleMenu = () => {
     menuIcon.classList.toggle('bx-x');
     navbar.classList.toggle('active');
 };
 
+const removeMenuOnScroll = () => {
+    menuIcon.classList.remove('bx-x');
+    navbar.classList.remove('active');
+};
 
-/*========== scroll sections active link ==========*/
-let sections = document.querySelectorAll('section');
-let navLinks = document.querySelectorAll('header nav a');
-
-window.onscroll = () => {
+/* Scroll Functions */
+const handleScroll = () => {
+    // Sticky header
+    header.classList.toggle('sticky', window.scrollY > 100);
+    
+    // Active section highlighting
     sections.forEach(sec => {
-        let top = window.scrollY;
-        let offset = sec.offsetTop - 150;
-        let height = sec.offsetHeight;
-        let id = sec.getAttribute('id');
+        const top = window.scrollY;
+        const offset = sec.offsetTop - 150;
+        const height = sec.offsetHeight;
+        const id = sec.getAttribute('id');
 
         if(top >= offset && top < offset + height) {
             navLinks.forEach(links => {
                 links.classList.remove('active');
-                document.querySelector('header nav a[href*=' + id + ']').classList.add('active');
+                document.querySelector(`header nav a[href*='${id}']`).classList.add('active');
             });
-        };
+        }
     });
-
-
-/*========== sticky navbar ==========*/
-let header = document.querySelector('.header');
-
-header.classList.toggle('sticky', window.scrollY > 100);
-
-
-/*========== remove menu icon navbar when click navbar link (scroll) ==========*/
-menuIcon.classList.remove('bx-x');
-navbar.classList.remove('active');
-
 };
 
-
-/*========== swiper ==========*/
-var swiper = new Swiper(".mySwiper", {
-    slidesPerView: 1,
-    spaceBetween: 50,
-    loop: true,
-    grabCursor: true,
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
-    },
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
-});
-
-
-/*========== dark light mode ==========*/
-let darkModeIcon = document.querySelector('#darkMode-icon');
-
-darkModeIcon.onclick = () => {
+/* Theme Functions */
+const toggleDarkMode = () => {
     darkModeIcon.classList.toggle('bx-sun');
     document.body.classList.toggle('dark-mode');
 };
 
+/* Swiper Configuration */
+const initSwiper = () => {
+    new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 50,
+        loop: true,
+        grabCursor: true,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
+};
 
-/*========== scroll reveal ==========*/
-ScrollReveal({
-    // reset: true,
-    distance: '80px',
-    duration: 2000,
-    delay: 200
+/* Scroll Reveal Configuration */
+const initScrollReveal = () => {
+    ScrollReveal({
+        distance: '80px',
+        duration: 2000,
+        delay: 200
+    });
+
+    ScrollReveal().reveal('.home-content, .heading', { origin: 'top' });
+    ScrollReveal().reveal('.home-img img, .services-container, .portfolio-box, .testimonial-wrapper, .contact form', { origin: 'bottom' });
+    ScrollReveal().reveal('.home-content h1, .about-img img', { origin: 'left' });
+    ScrollReveal().reveal('.home-content h3, .home-content p, .about-content', { origin: 'right' });
+};
+
+/* Event Listeners */
+menuIcon.addEventListener('click', toggleMenu);
+window.addEventListener('scroll', handleScroll);
+window.addEventListener('scroll', removeMenuOnScroll);
+darkModeIcon.addEventListener('click', toggleDarkMode);
+
+/* Initialize Third-party Libraries */
+document.addEventListener('DOMContentLoaded', () => {
+    initSwiper();
+    initScrollReveal();
 });
 
-ScrollReveal().reveal('.home-content, .heading', { origin: 'top' });
-ScrollReveal().reveal('.home-img img, .services-container, .portfolio-box, .testimonial-wrapper, .contact form', { origin: 'bottom' });
-ScrollReveal().reveal('.home-content h1, .about-img img', { origin: 'left' });
-ScrollReveal().reveal('.home-content h3, .home-content p, .about-content', { origin: 'right' });
+// Video Modal Functionality
+const logo = document.querySelector('.logo');
+const videoModal = document.getElementById('videoModal');
+const portfolioVideo = document.getElementById('portfolioVideo');
+const closeVideo = document.querySelector('.close-video');
+
+logo.addEventListener('click', (e) => {
+    e.preventDefault();
+    videoModal.style.display = 'flex';
+    // Trigger reflow
+    videoModal.offsetHeight;
+    videoModal.classList.add('active');
+    portfolioVideo.play();
+});
+
+closeVideo.addEventListener('click', () => {
+    videoModal.classList.remove('active');
+    setTimeout(() => {
+        videoModal.style.display = 'none';
+        portfolioVideo.pause();
+        portfolioVideo.currentTime = 0;
+    }, 300);
+});
+
+videoModal.addEventListener('click', (e) => {
+    if (e.target === videoModal) {
+        videoModal.classList.remove('active');
+        setTimeout(() => {
+            videoModal.style.display = 'none';
+            portfolioVideo.pause();
+            portfolioVideo.currentTime = 0;
+        }, 300);
+    }
+});
