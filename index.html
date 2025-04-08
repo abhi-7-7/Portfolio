@@ -375,37 +375,84 @@
 
         <div class="contact-container">
             <div class="contact-info">
-                <div class="info-item">
-                    <i class='bx bx-envelope'></i>
-                    <h3>Email</h3>
-                    <p>aarsh4344@gmail.com</p>
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class='bx bx-envelope'></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Email</h3>
+                        <p>aarsh4344@gmail.com</p>
+                        <a href="mailto:aarsh4344@gmail.com" class="contact-link">Send Email</a>
+                    </div>
                 </div>
-                <div class="info-item">
-                    <i class='bx bx-phone'></i>
-                    <h3>Phone</h3>
-                    <p>+91 8864975779</p>
+
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class='bx bx-phone'></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Phone</h3>
+                        <p>+91 8864975779</p>
+                        <a href="tel:+918864975779" class="contact-link">Call Me</a>
+                    </div>
                 </div>
-                <div class="info-item">
-                    <i class='bx bx-location-plus'></i>
-                    <h3>Location</h3>
-                    <p>Dehradun, Uttarakhand, India</p>
+
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class='bx bx-location-plus'></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Location</h3>
+                        <p>Dehradun, Uttarakhand, India</p>
+                        <a href="https://maps.google.com/?q=Dehradun,Uttarakhand" target="_blank" class="contact-link">View on Map</a>
+                    </div>
                 </div>
             </div>
 
-            <form action="#" method="POST">
-                <div class="input-box">
-                    <input type="text" name="name" placeholder="Full Name" required>
-                    <input type="email" name="email" placeholder="Email Address" required>
+            <form action="#" method="POST" class="contact-form">
+                <div class="form-header">
+                    <h3>Get in Touch</h3>
+                    <p>Feel free to reach out for collaborations or just a friendly hello</p>
                 </div>
 
-                <div class="input-box">
-                    <input type="text" name="subject" placeholder="Subject" required>
-                    <input type="text" name="mobile" placeholder="Mobile Number" required>
+                <div class="input-group">
+                    <div class="input-box">
+                        <input type="text" name="name" required>
+                        <label>Full Name</label>
+                        <span class="focus-border"></span>
+                    </div>
+
+                    <div class="input-box">
+                        <input type="email" name="email" required>
+                        <label>Email Address</label>
+                        <span class="focus-border"></span>
+                    </div>
                 </div>
 
-                <textarea name="message" rows="10" placeholder="Your Message" required></textarea>
+                <div class="input-group">
+                    <div class="input-box">
+                        <input type="text" name="subject" required>
+                        <label>Subject</label>
+                        <span class="focus-border"></span>
+                    </div>
 
-                <button type="submit" class="btn">Send Message</button>
+                    <div class="input-box">
+                        <input type="text" name="mobile" required>
+                        <label>Mobile Number</label>
+                        <span class="focus-border"></span>
+                    </div>
+                </div>
+
+                <div class="input-box message-box">
+                    <textarea name="message" required></textarea>
+                    <label>Your Message</label>
+                    <span class="focus-border"></span>
+                </div>
+
+                <button type="submit" class="btn submit-btn">
+                    <span>Send Message</span>
+                    <i class='bx bx-send'></i>
+                </button>
             </form>
         </div>
     </section>
@@ -413,7 +460,7 @@
     <!-- footer design -->
     <footer class="footer">
         <div class="footer-text">
-            <p>Copyright &copy; 2024 by Aarsh Bhatnagar | All Rights Reserved.</p>
+            <p>Copyright &copy; 2025 by Aarsh Bhatnagar | All Rights Reserved.</p>
         </div>
 
         <div class="footer-iconTop">
