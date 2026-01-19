@@ -122,3 +122,86 @@ videoModal.addEventListener('click', (e) => {
         }, 300);
     }
 });
+
+// Contact Form Submission Handler
+const contactForm = document.querySelector('.contact-form');
+if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Get form data
+        const name = document.querySelector('input[name="name"]').value;
+        const email = document.querySelector('input[name="email"]').value;
+        const subject = document.querySelector('input[name="subject"]').value;
+        const mobile = document.querySelector('input[name="mobile"]').value;
+        const message = document.querySelector('textarea[name="message"]').value;
+        
+        // Validate form data
+        if (!name || !email || !subject || !mobile || !message) {
+            alert('Please fill in all fields');
+            return;
+        }
+        
+        // Show loading state
+        const submitBtn = contactForm.querySelector('.submit-btn');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<span>Sending...</span>';
+        submitBtn.disabled = true;
+        
+        try {
+            // Google Apps Script Web App URL - Connected to your Google Sheet
+            const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxE6qjgevagWHaLlM90AOFbIsxuUxbIKp2SJZKOGED1nt8uZuy0cmz486wCTctVUq1cIA/exec';
+            
+            // Prepare the data
+            const formData = {
+                name: name,
+                email: email,
+                subject: subject,
+                mobile: mobile,
+                message: message
+            };
+            
+            // Send data to Google Apps Script
+            const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            // Wait a moment for the data to be processed
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            // Show success message
+            alert('✓ Thank you! Your message has been sent successfully.\n\nWe have received your details and will get back to you soon.');
+            
+            // Reset form
+            contactForm.reset();
+            
+            // Scroll to top after success
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to send message. Please try again.');
+        } finally {
+            // Restore button state
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
+    });
+}
+
+// Send Email Button - Redirect to Form
+const sendEmailLink = document.querySelector('a[href="mailto:aarsh4344@gmail.com"]');
+if (sendEmailLink) {
+    sendEmailLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        // Scroll to contact form
+        const form = document.querySelector('.contact-form');
+        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Focus on first input
+        form.querySelector('input[name="name"]').focus();
+    });
+}
